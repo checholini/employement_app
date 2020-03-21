@@ -16,16 +16,73 @@ class DetailState extends State<Details> {
       appBar: AppBar(
         title: Text('Detalle de la oferta'),
       ),
-      body: Container(
-        alignment: Alignment.center,
+      body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(oferta.title),
-            Text(oferta.enterprise),
-            Text(oferta.details),
+            _titleFormat(oferta.title),
+            _div,
+            _titleFormat('Ofertado por: '),
+            _textFormat(oferta.enterprise),
+            _div,
+            _titleFormat('Descripcion de la oferta:'),
+            _textFormat(oferta.details),
+            _div,
+            _titleFormat('Conocimientos Requeridos'),
+            /*new ListView.builder(
+                itemCount: oferta.requirements.length,
+                itemBuilder: (context, i) => 
+                      new Column(
+                        children: <Widget>[
+                          Icon(Icons.check_circle),
+                          _textFormat(oferta.requirements[i]),
+                        ],
+                      ),
+                    ),*/
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        label: Text('Aplicar'),
+        icon: Icon(Icons.check),
+      ),
     );
   }
+}
+
+Widget _div = Padding(
+  child: Divider(
+    height: 1,
+  ),
+  padding: EdgeInsets.symmetric(horizontal: 36, vertical: 10),
+);
+
+_titleFormat(text) {
+  return Padding(
+    padding: EdgeInsets.symmetric(horizontal: 36, vertical: 10),
+    child: Text(
+      text,
+      textAlign: TextAlign.left,
+      style: TextStyle(
+        fontSize: 28,
+      ),
+    ),
+  );
+}
+
+_textFormat(text) {
+  return Padding(
+    padding: EdgeInsets.symmetric(horizontal: 36, vertical: 10),
+    child: Text(
+      text,
+      textAlign: TextAlign.left,
+      style: TextStyle(
+        fontSize: 24,
+        color: Colors.grey,
+      ),
+    ),
+  );
 }

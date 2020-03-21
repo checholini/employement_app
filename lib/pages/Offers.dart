@@ -1,4 +1,3 @@
-import 'package:employement_app/pages/Details.dart';
 import 'package:flutter/material.dart';
 import 'package:employement_app/dummies/DummyOffers.dart';
 
@@ -29,7 +28,7 @@ class OfferState extends State<Offers> {
                   child: Container(
                     child: new ListTile(
                       title: new Text(ofertasDummy[i].title),
-                      subtitle: new Text(ofertasDummy[i].enterprise),
+                      subtitle: new Text('Ofertado por: ' + ofertasDummy[i].enterprise),
                     ),
                   ),
                 ),

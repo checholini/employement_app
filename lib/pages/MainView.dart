@@ -15,7 +15,19 @@ class MainState extends State<MainView> {
       appBar: AppBar(
         title: Text('Incio'),
       ),
-      body: Text('CCCCCCCCCCC'),
+      body: Center(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 40),
+          child: Text(
+            'Aca apareceran las ofertas a las que hayas aplicado\n\nPara aplicar a una oferta ve a la pestaña de ofertas',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 36,
+              color: Colors.grey,
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
