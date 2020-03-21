@@ -29,16 +29,7 @@ class DetailState extends State<Details> {
             _textFormat(oferta.details),
             _div,
             _titleFormat('Conocimientos Requeridos'),
-            /*new ListView.builder(
-                itemCount: oferta.requirements.length,
-                itemBuilder: (context, i) => 
-                      new Column(
-                        children: <Widget>[
-                          Icon(Icons.check_circle),
-                          _textFormat(oferta.requirements[i]),
-                        ],
-                      ),
-                    ),*/
+            requirements(oferta),
           ],
         ),
       ),
@@ -82,6 +73,38 @@ _textFormat(text) {
       style: TextStyle(
         fontSize: 24,
         color: Colors.grey,
+      ),
+    ),
+  );
+}
+
+_listFormat(text) {
+  return Text(
+    '   '+text,
+    textAlign: TextAlign.left,
+    style: TextStyle(
+      fontSize: 18,
+      color: Colors.grey,
+    ),
+  );
+}
+
+requirements(oferta) {
+  return new ListView.builder(
+    shrinkWrap: true,
+    itemCount: oferta.requirements.length,
+    itemBuilder: (context, i) => new Container(
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 36, vertical: 10),
+        child: Row(
+          children: <Widget>[
+            Icon(
+              Icons.check_circle,
+              size: 20,
+            ),
+            _listFormat(oferta.requirements[i]),
+          ],
+        ),
       ),
     ),
   );
