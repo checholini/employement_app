@@ -32,7 +32,11 @@ class MainState extends State<MainView> {
   }
 
   Widget _singleViewLayout() {
+<<<<<<< HEAD
     return determineSingleView();
+=======
+    return determineSingledisView();
+>>>>>>> b7608205c3ca6bf684d0b3db7be7fe377ae579c0
   }
 
   /*
