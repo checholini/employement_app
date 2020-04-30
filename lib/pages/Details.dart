@@ -1,17 +1,25 @@
+import 'package:employement_app/pages/MainView.dart';
 import 'package:flutter/material.dart';
 import 'package:employement_app/models/offertModel.dart';
 
 class Details extends StatefulWidget {
+  Offert oferta;
   @override
   State<StatefulWidget> createState() {
-    return DetailState();
+    return DetailState(this.oferta);
   }
 }
 
 class DetailState extends State<Details> {
+  final Offert oferta;
+
+  DetailState(this.oferta);
+
   @override
   Widget build(BuildContext context) {
-    Offert oferta = ModalRoute.of(context).settings.arguments;
+    print(ModalRoute.of(context).settings.arguments);
+    List args = ModalRoute.of(context).settings.arguments;
+    Offert oferta = args[0];
     return Scaffold(
       appBar: AppBar(
         title: Text('Detalle de la oferta'),
@@ -33,15 +41,33 @@ class DetailState extends State<Details> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          Navigator.pop(context);
-        },
-        label: Text('Aplicar'),
-        icon: Icon(Icons.check),
-      ),
+      floatingActionButton: args[1]
+          ? applyOfferFloatingButton(context, oferta)
+          : removeOfferFloatingButton(context, oferta),
     );
   }
+}
+
+Widget applyOfferFloatingButton(context, oferta) {
+  return FloatingActionButton.extended(
+    onPressed: () {
+      MainState().pushOffer(oferta);
+      Navigator.pop(context);
+    },
+    label: Text('Aplicar'),
+    icon: Icon(Icons.check),
+  );
+}
+
+Widget removeOfferFloatingButton(context, oferta) {
+  return FloatingActionButton.extended(
+    onPressed: () {
+      MainState().removeOffer(oferta);
+      Navigator.pop(context);
+    },
+    label: Text('Eliminar'),
+    icon: Icon(Icons.delete),
+  );
 }
 
 Widget _div = Padding(
@@ -80,7 +106,7 @@ _textFormat(text) {
 
 _listFormat(text) {
   return Text(
-    '   '+text,
+    '   ' + text,
     textAlign: TextAlign.left,
     style: TextStyle(
       fontSize: 18,
