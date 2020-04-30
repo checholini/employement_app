@@ -1,4 +1,5 @@
 import 'package:employement_app/pages/Details.dart';
+import 'package:employement_app/pages/MainView.dart';
 import 'package:employement_app/pages/cvPage.dart';
 import 'package:flutter/material.dart';
 
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/detalles': (context) => Details(),
         '/cv': (context) => CvPage(), 
+        '/main': (context) => MainView(),
       },
     );
   }
