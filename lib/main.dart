@@ -1,6 +1,7 @@
 import 'package:employement_app/pages/Details.dart';
 import 'package:employement_app/pages/MainView.dart';
 import 'package:employement_app/pages/cvPage.dart';
+import 'package:employement_app/textTheme.dart';
 import 'package:flutter/material.dart';
 
 import 'pages/HomePage.dart';
@@ -16,9 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Employement app',
-      theme: ThemeData(
-        primarySwatch: Colors.purple,
-      ),
+      theme: dark,
       home: LoginPage(),
       routes: {
         '/detalles': (context) => Detail(),
