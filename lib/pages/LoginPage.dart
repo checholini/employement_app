@@ -36,7 +36,7 @@ class LoginState extends State<LoginPage> {
     final loginButon = Material(
       elevation: 5.0,
       borderRadius: BorderRadius.circular(30.0),
-      color: Color(0xff01A0C7),
+      color: Colors.deepPurple,
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
@@ -56,7 +56,7 @@ class LoginState extends State<LoginPage> {
     final registerButon = Material(
       elevation: 7.0,
       borderRadius: BorderRadius.circular(30.0),
-      color: Color(0xff01A0C7),
+      color: Colors.deepPurple,
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
@@ -73,8 +73,6 @@ class LoginState extends State<LoginPage> {
     return Scaffold(
         body: SingleChildScrollView(
       child: Center(
-        child: Container(
-          color: Colors.white,
           child: Padding(
             padding: const EdgeInsets.all(36.0),
             child: Column(
@@ -108,6 +106,6 @@ class LoginState extends State<LoginPage> {
           ),
         ),
       ),
-    ));
+    );
   }
 }

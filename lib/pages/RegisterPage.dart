@@ -1,3 +1,4 @@
+import 'package:employement_app/pages/HomePage.dart';
 import 'package:employement_app/pages/Offers.dart';
 import 'package:employement_app/pages/Profile.dart';
 import 'package:flutter/material.dart';
@@ -23,34 +24,13 @@ class _RegisterFormState extends State<RegisterPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+          SizedBox(height: 65.0),
+          textBoxFormatter('Nickname'),
+          textBoxFormatter('Nombre Completo'),
+          textBoxFormatter('Correo Electronico'),
+          textBoxFormatter('Contraseña'),
           Padding(
-            padding:EdgeInsets.symmetric(vertical: 50, horizontal: 20), 
-            child:
-            TextFormField(
-              decoration: const InputDecoration(
-              labelText: 'Nickname',
-            ),
-            validator: (String value) {
-              if (value.trim().isEmpty) {
-                return 'Nickname is required';
-              }
-            },
-            )
-          ),
-            
-          const SizedBox(height: 16.0),
-          TextFormField(
-            decoration: const InputDecoration(
-              labelText: 'Full name',
-            ),
-            validator: (String value) {
-              if (value.trim().isEmpty) {
-                return 'Full name is required';
-              }
-            },
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16.0),
+            padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 36),
             child: Row(
               children: <Widget>[
                 Checkbox(
@@ -60,25 +40,53 @@ class _RegisterFormState extends State<RegisterPage> {
                 GestureDetector(
                   onTap: () => _setAgreedToTOS(!_agreedToTOS),
                   child: const Text(
-                    'I agree to the Terms of Services and Privacy Policy',
+                    'Acepto los terminos y condiciones',
                   ),
                 ),
               ],
             ),
           ),
-          Row(
-            children: <Widget>[
-              const Spacer(),
-              OutlineButton(
-                highlightedBorderColor: Colors.black,
-                onPressed: _submittable() ? _submit : null,
-                child: const Text('Register'),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 36, vertical: 15),
+            child: Material(
+              elevation: 5.0,
+              borderRadius: BorderRadius.circular(30.0),
+              color: Colors.deepPurple,
+              child: MaterialButton(
+                minWidth: MediaQuery.of(context).size.width,
+                padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    new MaterialPageRoute(builder: (context) => HomePage()),
+                  );
+                },
+                child: Text("Registrar",
+                    textAlign: TextAlign.center,
+                    style: style.copyWith(
+                        color: Colors.white, fontWeight: FontWeight.bold)),
               ),
-            ],
+            ),
           ),
         ],
       ),
     ));
+  }
+
+  TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
+
+  textBoxFormatter(text) {
+    return Padding(
+      padding: EdgeInsets.fromLTRB(36.0, 15.0, 36.0, 15.0),
+      child: TextField(
+        style: style,
+        decoration: InputDecoration(
+            contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+            hintText: text,
+            border:
+                OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
+      ),
+    );
   }
 
   bool _submittable() {
