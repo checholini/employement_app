@@ -25,8 +25,6 @@ class HomeState extends State<HomePage> {
       bottomNavigationBar: BottomNavigationBar(
         showSelectedLabels: false,
         showUnselectedLabels: false,
-        selectedItemColor: Colors.purple[300],
-        unselectedItemColor: Colors.grey.shade300,
         type: BottomNavigationBarType.fixed,
         items: [
           _bottomIcons(Icons.book),
