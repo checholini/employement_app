@@ -12,7 +12,9 @@ ThemeData dark = new ThemeData(
   brightness: Brightness.dark,
   primaryColor: Colors.grey[900],
   accentColor: Colors.deepOrange[500],
-  textTheme: GoogleFonts.inconsolataTextTheme(),
+  textTheme: GoogleFonts.inconsolataTextTheme(
+    TextTheme(body1: TextStyle(color: Colors.white))
+  ),
 );
 
 ThemeData basic = new ThemeData(

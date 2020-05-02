@@ -124,7 +124,6 @@ _textFormat(text) {
       textAlign: TextAlign.left,
       style: TextStyle(
         fontSize: 24,
-        color: Colors.grey,
       ),
     ),
   );
