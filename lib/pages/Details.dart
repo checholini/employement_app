@@ -1,5 +1,6 @@
 import 'package:employement_app/pages/HomePage.dart';
 import 'package:employement_app/pages/MainView.dart';
+import 'package:employement_app/pages/Offers.dart';
 import 'package:flutter/material.dart';
 import 'package:employement_app/models/offertModel.dart';
 
@@ -64,6 +65,7 @@ Widget applyOfferFloatingButton(context, oferta, isInDualView) {
       : FloatingActionButton.extended(
           onPressed: () {
             MainState().pushOffer(oferta);
+            OfferState().clearCallback();
             Navigator.pushReplacement(context,
                 new MaterialPageRoute(builder: (context) => HomePage()));
           },
