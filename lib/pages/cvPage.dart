@@ -1,35 +1,36 @@
+import 'package:employement_app/pages/Profile.dart';
 import 'package:flutter/material.dart';
 
+class CvPage extends StatelessWidget {
 
-class CvPage extends StatefulWidget {
-  @override
-  State createState() => new CvPageState();
-}
-
-//class CvPageState extends State<CvPage> 
-class CvPageState extends State<CvPage> {
+  final bool cameFromFloating;
+  CvPage({this.cameFromFloating});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Crear CV'),
-        ),
-        body: ListView.builder(
-          itemBuilder: (BuildContext context, int index) =>
-              EntryItem(data[index]),
-          itemCount: data.length,
-        ),
-        floatingActionButton: FloatingActionButton(
-        onPressed: () {Navigator.pop(context, );},
-         child: Icon(Icons.save),
-       ),
+    return Scaffold(
+      appBar: AppBar(
+        title: cameFromFloating == null ? const Text('Crear CV') : const Text('Mi CV'),
       ),
+      body: ListView.builder(
+        itemBuilder: (BuildContext context, int index) =>
+            EntryItem(data[index]),
+        itemCount: data.length,
+      ),
+      floatingActionButton: cameFromFloating  == null
+          ? FloatingActionButton(
+              onPressed: () {
+                ProfileState().markCvAsFilled();
+                Navigator.pop(
+                  context,
+                );
+              },
+              child: Icon(Icons.save),
+            )
+          : null,
     );
   }
 }
-
 
 // One entry in the multilevel list displayed by this app.
 class Entry {
@@ -63,7 +64,8 @@ final List<Entry> data = <Entry>[
         ],
       ),
     ],
-  ),Entry(
+  ),
+  Entry(
     'Referencias Personales',
     <Entry>[
       Entry('Section C0'),
@@ -78,7 +80,8 @@ final List<Entry> data = <Entry>[
         ],
       ),
     ],
-  ),Entry(
+  ),
+  Entry(
     'Referencias Empresariales',
     <Entry>[
       Entry('Section C0'),
@@ -93,7 +96,8 @@ final List<Entry> data = <Entry>[
         ],
       ),
     ],
-  ),Entry(
+  ),
+  Entry(
     'Competencias personales',
     <Entry>[
       Entry('Section C0'),
@@ -109,8 +113,6 @@ final List<Entry> data = <Entry>[
       ),
     ],
   ),
-
-  
 ];
 
 // Displays one Entry. If the entry has children then it's displayed

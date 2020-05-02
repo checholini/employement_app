@@ -1,4 +1,5 @@
 import 'package:employement_app/models/offertModel.dart';
+import 'package:employement_app/pages/Details.dart';
 import 'package:flutter/material.dart';
 
 class MainView extends StatefulWidget {
@@ -9,6 +10,7 @@ class MainView extends StatefulWidget {
 }
 
 List<Offert> _ofertasAceptadas = [];
+Offert ofertaCallback;
 
 class MainState extends State<MainView> {
   Widget content;
@@ -20,7 +22,7 @@ class MainState extends State<MainView> {
     if (shortestSide < 600) {
       content = _singleViewLayout();
     } else {
-      //content = _dualViewLayout();
+      content = _dualViewLayout();
     }
 
     return Scaffold(
@@ -35,10 +37,56 @@ class MainState extends State<MainView> {
     return determineSingleView();
   }
 
-  /*
   Widget _dualViewLayout() {
+    return determineDualView();
+  }
+
+  determineDualView() {
+    if(_ofertasAceptadas.length == 0){
+      return Center(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 40, vertical: 70),
+          child: Column(
+            children: <Widget>[
+              Icon(
+                Icons.business_center,
+                size: 90,
+                color: Colors.grey,
+              ),
+              Text(
+                '\nAca apareceran las ofertas a las que hayas aplicado\n\nPara aplicar a una oferta ve a la pestaña de ofertas',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 32,
+                  color: Colors.grey,
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+    return Row(
+      children: <Widget>[
+        Flexible(
+          flex: 1,
+          child: Material(
+            elevation: 4.0,
+            child: itemList(true),
+          ),
+        ),
+        Flexible(
+          flex: 3,
+          child: Detail(
+            oferta: ofertaCallback,
+            isInDualView: true,
+            comesFromMain: true,
+          ),
+        ),
+      ],
+    );
     
-  }*/
+  }
 
   determineSingleView() {
     if (_ofertasAceptadas.length == 0) {
@@ -65,40 +113,7 @@ class MainState extends State<MainView> {
         ),
       );
     } else {
-      return new ListView.builder(
-        itemCount: _ofertasAceptadas.length,
-        itemBuilder: (context, i) => new Column(
-          children: <Widget>[
-            new Divider(
-              height: 10,
-            ),
-            Row(
-              children: <Widget>[
-                Expanded(
-                  child: Container(
-                    child: new ListTile(
-                      title: new Text(_ofertasAceptadas[i].title),
-                      subtitle: new Text(
-                          'Ofertado por: ' + _ofertasAceptadas[i].enterprise),
-                    ),
-                  ),
-                ),
-                IconButton(
-                  icon: Icon(Icons.chevron_right),
-                  iconSize: 42,
-                  onPressed: () {
-                    Navigator.pushNamed(
-                      context,
-                      '/detalles',
-                      arguments: [_ofertasAceptadas[i], false],
-                    );
-                  },
-                ),
-              ],
-            )
-          ],
-        ),
-      );
+      return itemList(false);
     }
   }
 
@@ -107,6 +122,63 @@ class MainState extends State<MainView> {
   }
 
   void removeOffer(oferta) {
+    ofertaCallback = null;
     _ofertasAceptadas.remove(oferta);
+  }
+
+  Widget itemList(bool isDualView) {
+    return new ListView.builder(
+      itemCount: _ofertasAceptadas.length,
+      itemBuilder: (context, i) => new Column(
+        children: <Widget>[
+          new Divider(
+            height: 10,
+          ),
+          Row(
+            children: <Widget>[
+              Expanded(
+                child: Container(
+                  child: new ListTile(
+                    title: new Text(_ofertasAceptadas[i].title),
+                    subtitle: new Text(
+                        'Ofertado por: ' + _ofertasAceptadas[i].enterprise),
+                  ),
+                ),
+              ),
+              determineButtonFunction(isDualView, i),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  determineButtonFunction(bool isInDualView, int i) {
+    return !isInDualView
+        ? IconButton(
+            icon: Icon(Icons.chevron_right),
+            iconSize: 42,
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (content) => Detail(
+                    isInDualView: false,
+                    oferta: _ofertasAceptadas[i],
+                    comesFromMain: true,
+                  ),
+                ),
+              );
+            },
+          )
+        : IconButton(
+            icon: Icon(Icons.chevron_right),
+            iconSize: 42,
+            onPressed: () {
+              setState(() {
+                ofertaCallback = _ofertasAceptadas[i];
+              });
+            },
+          );
   }
 }

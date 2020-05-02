@@ -1,3 +1,4 @@
+import 'package:employement_app/pages/HomePage.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -40,7 +41,10 @@ class LoginState extends State<LoginPage> {
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
         onPressed: () {
-          Navigator.pushNamed(context, '/homePage');
+          Navigator.pushReplacement(
+            context,
+            new MaterialPageRoute(builder: (context) => HomePage()),
+          );
         },
         child: Text("Login",
             textAlign: TextAlign.center,

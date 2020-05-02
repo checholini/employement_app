@@ -23,6 +23,8 @@ _textFormater(text) {
   );
 }
 
+bool filledCv;
+
 class ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
@@ -51,7 +53,18 @@ class ProfileState extends State<Profile> {
                   padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
                   child: RaisedButton(
                     child: Text('Ver hoja de vida'),
-                    onPressed: null,
+                    onPressed: filledCv == null
+                        ? null
+                        : () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => CvPage(
+                                  cameFromFloating: false,
+                                ),
+                              ),
+                            );
+                          },
                   ),
                 )
               ],
@@ -63,8 +76,12 @@ class ProfileState extends State<Profile> {
         onPressed: () {
           Navigator.pushNamed(context, '/cv');
         },
-        child: Icon(Icons.add),
+        child: filledCv == null ? Icon(Icons.add) : Icon(Icons.edit),
       ),
     );
+  }
+
+  markCvAsFilled() {
+    filledCv = true;
   }
 }

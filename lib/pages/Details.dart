@@ -1,73 +1,99 @@
+import 'package:employement_app/pages/HomePage.dart';
 import 'package:employement_app/pages/MainView.dart';
+import 'package:employement_app/pages/Offers.dart';
 import 'package:flutter/material.dart';
 import 'package:employement_app/models/offertModel.dart';
 
-class Details extends StatefulWidget {
-  Offert oferta;
-  @override
-  State<StatefulWidget> createState() {
-    return DetailState(this.oferta);
-  }
-}
+class Detail extends StatelessWidget {
+  Detail({this.oferta, this.isInDualView, this.comesFromMain});
 
-class DetailState extends State<Details> {
   final Offert oferta;
-
-  DetailState(this.oferta);
+  final bool isInDualView;
+  final bool comesFromMain;
 
   @override
   Widget build(BuildContext context) {
-    print(ModalRoute.of(context).settings.arguments);
-    List args = ModalRoute.of(context).settings.arguments;
-    Offert oferta = args[0];
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Detalle de la oferta'),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            _titleFormat(oferta.title),
-            _div,
-            _titleFormat('Ofertado por: '),
-            _textFormat(oferta.enterprise),
-            _div,
-            _titleFormat('Descripcion de la oferta:'),
-            _textFormat(oferta.details),
-            _div,
-            _titleFormat('Conocimientos Requeridos'),
-            requirements(oferta),
-          ],
-        ),
-      ),
-      floatingActionButton: args[1]
-          ? applyOfferFloatingButton(context, oferta)
-          : removeOfferFloatingButton(context, oferta),
-    );
+    print(isInDualView);
+    return oferta != null
+        ? Scaffold(
+            appBar: !isInDualView
+                ? AppBar(
+                    title: Text('Detalle de la oferta'),
+                  )
+                : null,
+            body: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  _titleFormat(oferta.title),
+                  _div,
+                  _titleFormat('Ofertado por: '),
+                  _textFormat(oferta.enterprise),
+                  _div,
+                  _titleFormat('Descripcion de la oferta:'),
+                  _textFormat(oferta.details),
+                  _div,
+                  _titleFormat('Conocimientos Requeridos'),
+                  requirements(oferta),
+                ],
+              ),
+            ),
+            floatingActionButton: !comesFromMain
+                ? applyOfferFloatingButton(context, oferta, isInDualView)
+                : removeOfferFloatingButton(context, oferta, isInDualView),
+          )
+        : Scaffold(
+            body: Center(
+              child: Text('Selecciona una oferta del menú'),
+            ),
+          );
   }
 }
 
-Widget applyOfferFloatingButton(context, oferta) {
-  return FloatingActionButton.extended(
-    onPressed: () {
-      MainState().pushOffer(oferta);
-      Navigator.pop(context);
-    },
-    label: Text('Aplicar'),
-    icon: Icon(Icons.check),
-  );
+Widget applyOfferFloatingButton(context, oferta, isInDualView) {
+  return !isInDualView
+      ? FloatingActionButton.extended(
+          onPressed: () {
+            MainState().pushOffer(oferta);
+            Navigator.pop(context);
+            Navigator.pushReplacement(context,
+                new MaterialPageRoute(builder: (context) => HomePage()));
+          },
+          label: Text('Aplicar'),
+          icon: Icon(Icons.check),
+        )
+      : FloatingActionButton.extended(
+          onPressed: () {
+            MainState().pushOffer(oferta);
+            OfferState().clearCallback();
+            Navigator.pushReplacement(context,
+                new MaterialPageRoute(builder: (context) => HomePage()));
+          },
+          label: Text('Aplicar'),
+          icon: Icon(Icons.check),
+        );
 }
 
-Widget removeOfferFloatingButton(context, oferta) {
-  return FloatingActionButton.extended(
-    onPressed: () {
-      MainState().removeOffer(oferta);
-      Navigator.pop(context);
-    },
-    label: Text('Eliminar'),
-    icon: Icon(Icons.delete),
-  );
+Widget removeOfferFloatingButton(context, oferta, isInDualView) {
+  return !isInDualView
+      ? FloatingActionButton.extended(
+          onPressed: () {
+            MainState().removeOffer(oferta);
+            Navigator.pop(context);
+          },
+          label: Text('Eliminar'),
+          icon: Icon(Icons.delete),
+        )
+      : FloatingActionButton.extended(
+          onPressed: () {
+            MainState().removeOffer(oferta);
+            Navigator.pushReplacement(context,
+                new MaterialPageRoute(builder: (context) => HomePage()));
+            //MainState().refreshState();
+          },
+          label: Text('Eliminar'),
+          icon: Icon(Icons.delete),
+        );
 }
 
 Widget _div = Padding(
