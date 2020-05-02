@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 
 import 'pages/HomePage.dart';
 import 'pages/Details.dart';
+import 'pages/LoginPage.dart';
+import 'pages/RegisterPage.dart';
 
 void main() => runApp(MyApp());
 
@@ -16,10 +18,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.purple,
       ),
-      home: HomePage(),
+      home: LoginPage(),
       routes: {
         '/detalles': (context) => Details(),
         '/cv': (context) => CvPage(), 
+        '/homePage': (context) => HomePage(),
+        '/registerPage':(context) => RegisterPage(),
       },
     );
   }

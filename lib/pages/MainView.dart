@@ -13,7 +13,7 @@ class MainState extends State<MainView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Incio'),
+        title: Text('Inicio'),
       ),
       body: Center(
         child: Padding(
