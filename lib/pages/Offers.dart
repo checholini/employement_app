@@ -1,3 +1,4 @@
+import 'package:employement_app/pages/Details.dart';
 import 'package:flutter/material.dart';
 import 'package:employement_app/dummies/DummyOffers.dart';
 
@@ -17,7 +18,7 @@ class OfferState extends State<Offers> {
     if (shortestSide < 600) {
       content = _singleViewLayout();
     } else {
-      //content = _dualViewLayout();
+      content = _singleViewLayout();
     }
 
     return Scaffold(
@@ -51,8 +52,16 @@ class OfferState extends State<Offers> {
                 icon: Icon(Icons.chevron_right),
                 iconSize: 42,
                 onPressed: () {
-                  Navigator.pushNamed(context, '/detalles',
-                      arguments: [ofertasDummy[i], true] );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Detail(
+                        oferta: ofertasDummy[i],
+                        isInDualView: true,
+                        comesFromMain: false,
+                      ),
+                    ),
+                  );
                 },
               ),
             ],
@@ -61,8 +70,6 @@ class OfferState extends State<Offers> {
       ),
     );
   }
-/*
-  Widget _dualViewLayout() {
-  
-  }*/
+
+  Widget _dualViewLayout() {}
 }
