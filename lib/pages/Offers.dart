@@ -12,13 +12,13 @@ class Offers extends StatefulWidget {
 }
 
 Offert ofertaCallback;
+
 class OfferState extends State<Offers> {
   @override
   Widget build(BuildContext context) {
     Widget content;
-    var shortestSide = MediaQuery.of(context).size.shortestSide;
-
-    if (shortestSide < 600) {
+    var orientation = MediaQuery.of(context).orientation;
+    if (orientation == Orientation.portrait) {
       content = _singleViewLayout();
     } else {
       content = _dualViewLayout();
@@ -37,7 +37,7 @@ class OfferState extends State<Offers> {
   }
 
   Widget _dualViewLayout() {
-     return Row(
+    return Row(
       children: <Widget>[
         Flexible(
           flex: 1,
@@ -58,7 +58,6 @@ class OfferState extends State<Offers> {
     );
   }
 
-
   Widget itemList(bool isDualView) {
     return new ListView.builder(
       itemCount: ofertasDummy.length,
@@ -73,8 +72,8 @@ class OfferState extends State<Offers> {
                 child: Container(
                   child: new ListTile(
                     title: new Text(ofertasDummy[i].title),
-                    subtitle: new Text(
-                        'Ofertado por: ' + ofertasDummy[i].enterprise),
+                    subtitle:
+                        new Text('Ofertado por: ' + ofertasDummy[i].enterprise),
                   ),
                 ),
               ),
@@ -115,7 +114,7 @@ class OfferState extends State<Offers> {
           );
   }
 
-  clearCallback(){
+  clearCallback() {
     ofertaCallback = null;
   }
 }
