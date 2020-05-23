@@ -17,9 +17,8 @@ class MainState extends State<MainView> {
 
   @override
   Widget build(BuildContext context) {
-    var shortestSide = MediaQuery.of(context).size.shortestSide;
-
-    if (shortestSide < 600) {
+    var orientation = MediaQuery.of(context).orientation;
+    if (orientation == Orientation.portrait) {
       content = _singleViewLayout();
     } else {
       content = _dualViewLayout();
