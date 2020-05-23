@@ -3,8 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 ThemeData bright = new ThemeData(
   brightness: Brightness.light,
-  primaryColor: Colors.lightGreenAccent[400],
-  accentColor: Colors.amber[500],
+  primaryColor: Colors.deepPurple[800],
+  accentColor: Colors.teal[600],
   textTheme: GoogleFonts.solwayTextTheme(),
 );
 
@@ -19,9 +19,3 @@ ThemeData dark = new ThemeData(
   ),
 );
 
-ThemeData basic = new ThemeData(
-  brightness: Brightness.light,
-  primaryColor: Colors.deepPurple[800],
-  accentColor: Colors.teal[600],
-  fontFamily: "Ubuntu",
-);

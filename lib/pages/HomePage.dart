@@ -1,7 +1,9 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:employement_app/pages/Offers.dart';
 import 'package:employement_app/pages/Profile.dart';
+import 'package:employement_app/pages/themeProvider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'MainView.dart';
 import 'Offers.dart';
@@ -27,7 +29,6 @@ class HomeState extends State<HomePage> {
           child: PageView(
             controller: _pageController,
             onPageChanged: (index) {
-              print(index);
               setState(() => _currentPage = index);
             },
             children: _pages,

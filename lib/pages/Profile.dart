@@ -1,5 +1,10 @@
 import 'package:employement_app/pages/cvPage.dart';
+import 'package:employement_app/pages/themeProvider.dart';
 import 'package:flutter/material.dart';
+import 'package:employement_app/pages/globals.dart' as global;
+import 'package:provider/provider.dart';
+
+import '../textTheme.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -40,10 +45,10 @@ class ProfileState extends State<Profile> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 CircleAvatar(
-                  radius: 86,
+                  radius: 50,
                   child: Icon(
                     Icons.person,
-                    size: 86,
+                    size: 50,
                   ),
                 ),
                 _textFormater('Profile Name'),
@@ -65,6 +70,19 @@ class ProfileState extends State<Profile> {
                               ),
                             );
                           },
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                  child: RaisedButton(
+                    child: Text('Cambiar tema'),
+                    onPressed: () {
+                      Provider.of<ThemeProvider>(context, listen: false)
+                            .changeTheme();
+                      setState(() {
+                        true;
+                      });
+                    }                        
                   ),
                 )
               ],
