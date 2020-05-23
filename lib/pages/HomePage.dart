@@ -1,3 +1,4 @@
+import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:employement_app/pages/Offers.dart';
 import 'package:employement_app/pages/Profile.dart';
 import 'package:flutter/material.dart';
@@ -14,36 +15,46 @@ class HomePage extends StatefulWidget {
 }
 
 class HomeState extends State<HomePage> {
-  int _currentPage = 1;
+  int _currentPage = 2;
+  PageController _pageController = new PageController();
 
-  List<Widget> _pages = [Offers(), MainView(), Profile()];
+  List<Widget> _pages = [MainView(), Offers(), Profile()];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _pages[_currentPage],
-      bottomNavigationBar: BottomNavigationBar(
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        type: BottomNavigationBarType.fixed,
-        items: [
-          _bottomIcons(Icons.book),
-          _bottomIcons(Icons.home),
-          _bottomIcons(Icons.person),
-        ],
-        onTap: _changePage,
-        currentIndex: _currentPage,
-      ),
-    );
+        body: SizedBox.expand(
+          child: PageView(
+            controller: _pageController,
+            onPageChanged: (index) {
+              print(index);
+              setState(() => _currentPage = index);
+            },
+            children: _pages,
+          ),
+        ),
+        bottomNavigationBar: BottomNavyBar(
+          currentIndex: _currentPage,
+          onItemSelected: (index) => setState(() {
+            _currentPage = index;
+            _pageController.animateToPage(index,
+                duration: Duration(milliseconds: 300), curve: Curves.ease);
+          }),
+          items: [
+            BottomNavyBarItem(
+              icon: Icon(Icons.apps),
+              title: Text('Home'),
+              activeColor: Colors.red,
+            ),
+            BottomNavyBarItem(
+                icon: Icon(Icons.message),
+                title: Text('Ofertas'),
+                activeColor: Colors.pink),
+            BottomNavyBarItem(
+                icon: Icon(Icons.people),
+                title: Text('Perfil'),
+                activeColor: Colors.purpleAccent),
+          ],
+        ));
   }
-
-  void _changePage(int index) {
-    setState(() {
-      _currentPage = index;
-    });
-  }
-}
-
-BottomNavigationBarItem _bottomIcons(IconData icon) {
-  return BottomNavigationBarItem(icon: Icon(icon), title: Text(""));
 }

@@ -42,29 +42,41 @@ class MainState extends State<MainView> {
   }
 
   determineDualView() {
-    if(_ofertasAceptadas.length == 0){
-      return Center(
+    if (_ofertasAceptadas.length == 0) {
+      return SingleChildScrollView(
+          child: Center(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 40, vertical: 70),
-          child: Column(
+          child: SingleChildScrollView(
+              child: Column(
             children: <Widget>[
               Icon(
                 Icons.business_center,
                 size: 90,
                 color: Colors.grey,
               ),
-              Text(
-                '\nAca apareceran las ofertas a las que hayas aplicado\n\nPara aplicar a una oferta ve a la pestaña de ofertas',
+              SingleChildScrollView(
+                  child: Text(
+                'Aca apareceran las ofertas a las que hayas aplicado',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 32,
+                  fontSize: 16,
                   color: Colors.grey,
                 ),
-              ),
+              )),
+              SingleChildScrollView(
+                  child: Text(
+                'Para aplicar a una oferta ve a la pestaña de ofertas',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.grey,
+                ),
+              )),
             ],
-          ),
+          )),
         ),
-      );
+      ));
     }
     return Row(
       children: <Widget>[
@@ -85,33 +97,44 @@ class MainState extends State<MainView> {
         ),
       ],
     );
-    
   }
 
   determineSingleView() {
     if (_ofertasAceptadas.length == 0) {
-      return Center(
+            return SingleChildScrollView(
+          child: Center(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 40, vertical: 70),
-          child: Column(
+          child: SingleChildScrollView(
+              child: Column(
             children: <Widget>[
               Icon(
                 Icons.business_center,
                 size: 90,
                 color: Colors.grey,
               ),
-              Text(
-                '\nAca apareceran las ofertas a las que hayas aplicado\n\nPara aplicar a una oferta ve a la pestaña de ofertas',
+              SingleChildScrollView(
+                  child: Text(
+                'Aca apareceran las ofertas a las que hayas aplicado',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 32,
+                  fontSize: 28,
                   color: Colors.grey,
                 ),
-              ),
+              )),
+              SingleChildScrollView(
+                  child: Text(
+                '\n\nPara aplicar a una oferta ve a la pestaña de ofertas',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 24,
+                  color: Colors.grey,
+                ),
+              )),
             ],
-          ),
+          )),
         ),
-      );
+      ));
     } else {
       return itemList(false);
     }

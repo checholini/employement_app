@@ -1,3 +1,4 @@
+import 'package:employement_app/pages/ColorLoader3.dart';
 import 'package:employement_app/pages/Details.dart';
 import 'package:employement_app/pages/MainView.dart';
 import 'package:employement_app/pages/cvPage.dart';
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Employement app',
       theme: dark,
-      home: LoginPage(),
+      home: ColorLoader3(),
       routes: {
         '/detalles': (context) => Detail(),
         '/cv': (context) => CvPage(), 

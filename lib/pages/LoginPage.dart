@@ -41,10 +41,25 @@ class LoginState extends State<LoginPage> {
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
         onPressed: () {
-          Navigator.pushReplacement(
-            context,
-            new MaterialPageRoute(builder: (context) => HomePage()),
-          );
+          Navigator.push(
+              context,
+              PageRouteBuilder(
+                  transitionDuration: Duration(milliseconds: 500),
+                  transitionsBuilder: (BuildContext context,
+                      Animation<double> animation,
+                      Animation<double> secanimation,
+                      Widget child) {
+                    return ScaleTransition(
+                      scale: animation,
+                      child: child,
+                      alignment: Alignment.center,
+                    );
+                  },
+                  pageBuilder: (BuildContext context,
+                      Animation<double> animation,
+                      Animation<double> secanimation) {
+                    return HomePage();
+                  }));
         },
         child: Text("Login",
             textAlign: TextAlign.center,
@@ -71,8 +86,8 @@ class LoginState extends State<LoginPage> {
     );
 
     return Scaffold(
-        body: SingleChildScrollView(
-      child: Center(
+      body: SingleChildScrollView(
+        child: Center(
           child: Padding(
             padding: const EdgeInsets.all(36.0),
             child: Column(
